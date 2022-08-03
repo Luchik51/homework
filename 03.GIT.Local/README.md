@@ -334,3 +334,5 @@ echo "Gitlab updated!"
 git push origin_bitbucket --all
 echo "bitbucket updated!"
 ```
+##Slack integration
+![alt text](figures/slack.png)
