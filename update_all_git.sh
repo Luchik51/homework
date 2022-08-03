@@ -3,10 +3,10 @@
 comment=$1
 git add --all
 git commit -m "$comment"
-Green="\033[0;32m"
+Green="\033[32m"
 git push origin_github --all
-echo "${green}Github updated!"
+echo -e "${green}Github updated!${green}"
 git push origin_gitlab --all
-echo "Gitlab updated!"
+echo "Gitlab updated!${green}"
 git push origin_bitbucket --all
-echo "bitbucket updated!"
+echo "bitbucket updated!${green}"

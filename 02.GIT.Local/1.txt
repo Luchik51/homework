@@ -1,2 +1,3 @@
 first line for first file
 second line fir first file
+test color echo
