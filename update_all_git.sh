@@ -3,7 +3,7 @@
 comment=$1
 git add --all
 git commit -m "$comment"
-Green="\033[32m"
+Green=\033[32m
 git push origin_github --all
 echo -e "${green}Github updated!${green}"
 git push origin_gitlab --all
