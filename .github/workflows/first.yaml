@@ -8,7 +8,7 @@ on:
 jobs:
   prepare:
 #    runs-on: [ubuntu-latest,lab1]
-   runs-on: lab1
+    runs-on: lab1
     steps:
       - name: Install wget
         run: sudo apt update && sudo apt install -y wget
