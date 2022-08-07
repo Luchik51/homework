@@ -15,7 +15,7 @@ jobs:
       - name: Count tabs in file
 #        run: name_file=https://raw.githubusercontent.com/Luchik51/homework/master/.github/workflows/first.yaml
 #      - run: echo "Count of tabs in file $name_file:" > wget_report.log
-      - run: |
+        run: |
           name_file=https://raw.githubusercontent.com/Luchik51/homework/master/.github/workflows/first.yaml
           echo "Count of tabs in file $name_file:" > wget_report.log
           wget $name_file
