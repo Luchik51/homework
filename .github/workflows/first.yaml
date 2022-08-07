@@ -13,9 +13,10 @@ jobs:
         run: sudo apt update && sudo apt install -y wget
       - run: echo "wget has been installed"
       - name: Count tabs in file
-        run: echo "Count of tabs in file:" > wget_report.log
+        run: name_file=https://raw.githubusercontent.com/Luchik51/homework/master/.github/workflows/first.yaml
+      - run: echo "Count of tabs in file $name_file:" > wget_report.log
       - run: |
-          wget https://raw.githubusercontent.com/Luchik51/homework/master/.github/workflows/first.yaml
+          wget $name_file
           < first.yaml sed 's/[^\t]//g' | wc -c >> wget_report.log 2>&1
           ls -la
       - name: Upload report
