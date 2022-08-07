@@ -12,9 +12,11 @@ jobs:
       - name: Install wget
         run: sudo apt update && sudo apt install -y wget
       - run: echo "wget has been installed"
+      - name: Count tabs in file
+        run: echo "Coung of Tabs in file =" > wget_report.log
       - run: |
           wget https://github.com/Luchik51/homework/blob/master/.github/workflows/first.yaml
-          < first.yaml sed 's/[^\t]//g' | wc -c > wget_report.log 2>&1
+          < first.yaml sed 's/[^\t]//g' | wc -c >> wget_report.log 2>&1
           ls -la
       - name: Upload report
         uses: actions/upload-artifact@v2
