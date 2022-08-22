@@ -30,6 +30,7 @@ container-engine/runc : download_file | Download item --------------------------
 ```
 
 # History
+## Status
 ```bash
 vagrant@ubuntu2204:~$ minikube kubectl -- get pods -A
     > kubectl.sha256: 64 B / 64 B [--------------------------] 100.00% ? p/s 0s
@@ -42,8 +43,9 @@ kube-system   kube-controller-manager-minikube   0/1     Running   0          26
 kube-system   kube-proxy-f2v8r                   1/1     Running   0          18s
 kube-system   kube-scheduler-minikube            0/1     Running   0          26s
 kube-system   storage-provisioner                1/1     Running   0          31s
-
-
+```
+## Addon Ingress
+```bash
 vagrant@ubuntu2204:~$ minikube addons enable ingress
     ▪ Using image docker.io/jettech/kube-webhook-certgen:v1.5.1
     ▪ Using image docker.io/jettech/kube-webhook-certgen:v1.5.1
@@ -83,8 +85,9 @@ vagrant@ubuntu2204:~$ minikube addons list
 | storage-provisioner-gluster | minikube | disabled     |
 | volumesnapshots             | minikube | disabled     |
 |-----------------------------|----------|--------------|
-
-
+```
+## Run minikube with different HW options (RAM/CPU)
+```bash
 minikube start --memory 3400 --cpus 2
 😄  minikube v1.21.0 on Ubuntu 22.04 (vbox/amd64)
 ✨  Automatically selected the docker driver. Other choices: ssh, none
@@ -108,4 +111,14 @@ minikube start --memory 3400 --cpus 2
 ❗  /usr/bin/kubectl is version 1.24.4, which may have incompatibilites with Kubernetes 1.20.7.
     ▪ Want kubectl v1.20.7? Try 'minikube kubectl -- get pods -A'
 🏄  Done! kubectl is now configured to use "minikube" cluster and "default" namespace by default
+```
+## Scrinshot Minicube
+![alt text](figures/Minicube.png)
+
+## Complete deployment of your k8s cluster inside IT-ACADEMY environment:
+```bash
+node1 | CHANGED | rc=0 >>
+NAME    STATUS   ROLES           AGE   VERSION
+node1   Ready    control-plane   21h   v1.24.3
+node2   Ready    <none>          21h   v1.24.3
 ```
