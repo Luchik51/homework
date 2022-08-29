@@ -7,8 +7,8 @@ on:
 
 jobs:
   prepare:
-#    runs-on: [ubuntu-latest,lab1]
-    runs-on: lab1
+   runs-on: [ubuntu-latest]
+#    runs-on: lab1
     steps:
       - name: Install wget
         run: sudo apt update && sudo apt install -y wget
@@ -17,12 +17,14 @@ jobs:
 #        run: name_file=https://raw.githubusercontent.com/Luchik51/homework/master/.github/workflows/first.yaml
 #      - run: echo "Count of tabs in file $name_file:" > wget_report.log
         run: |
-          name_file=https://raw.githubusercontent.com/Luchik51/homework/master/.github/workflows/first.yaml
-          echo "Count of tabs in file $name_file:" > wget_report.log
-          wget $name_file
-          < first.yaml sed 's/[^\t]//g' | wc -c >> wget_report.log 2>&1
+          nc -z -v -w2 onliner.by 443 > nc_report.log 2>&1
           ls -la
+#          name_file=https://raw.githubusercontent.com/Luchik51/homework/master/.github/workflows/first.yaml
+#          echo "Count of tabs in file $name_file:" > wget_report.log
+#          wget $name_file
+#          < first.yaml sed 's/[^\t]//g' | wc -c >> wget_report.log 2>&1
+#          ls -la
       - name: Upload report
         uses: actions/upload-artifact@v2
         with:
-          path: wget_report.log
+          path: nc_report.log
