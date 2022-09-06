@@ -9,10 +9,12 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: Count tabs in changed files
+
     steps:
-      - run: echo "The ${{ github.repository }} repository will be cloned to the runner"
-      - uses: actions/checkout@v3
+      - name: pull modified files
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Get changed files
         id: changed-files
