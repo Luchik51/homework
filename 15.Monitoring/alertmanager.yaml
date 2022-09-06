@@ -1,0 +1,23 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: alertmanager
+  namespace: monitoring
+labels:
+  app: prometheus-server
+alertmanager:
+  image: prom/alertmanager:latest
+#  volumes:
+#    - ./alertmanager.yml:/alertmanager.yml
+  volumes:
+    - name: prometheus-config-volume
+      configMap:
+         defaultMode: 420
+         name: prometheus-server-conf
+    - name: prometheus-storage-volume
+      emptyDir: {}
+  command:
+    - '--config.file=/alertmanager.yml'
+  ports:
+    - '9093:9093'
