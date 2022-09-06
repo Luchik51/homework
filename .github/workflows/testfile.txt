@@ -21,4 +21,5 @@ jobs:
         - name: Upload report
           uses: actions/upload-artifact@v2
           with:
-            path: ${{ matrix.check-sites }}.log
+           path: ${{ matrix.check-sites }}.log
+Tab1  Tab2  Tab3
