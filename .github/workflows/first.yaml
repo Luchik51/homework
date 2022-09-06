@@ -1,4 +1,5 @@
-name: Check remote host and push report
+
+name: find_tabs
 
 on:
   push:
@@ -6,24 +7,26 @@ on:
     - master
 
 jobs:
-  prepare:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Install wget
-        run: sudo apt update && sudo apt install -y wget
-      - run: echo "wget has been installed"
-      - name: Count tabs in file
-#        run: name_file=https://raw.githubusercontent.com/Luchik51/homework/master/.github/workflows/first.yaml
-#      - run: echo "Count of tabs in file $name_file:" > wget_report.log
+      - name: pull modified files
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: search for changed files
+        id: files
+        uses: jitterbit/get-changed-files@v1
+
+      - name: find tab
         run: |
-          nc -z -v -w2 onliner.by 443 > nc_report.log 2>&1
-          ls -la
-#          name_file=https://raw.githubusercontent.com/Luchik51/homework/master/.github/workflows/first.yaml
-#          echo "Count of tabs in file $name_file:" > wget_report.log
-#          wget $name_file
-#          < first.yaml sed 's/[^\t]//g' | wc -c >> wget_report.log 2>&1
-#          ls -la
-      - name: Upload report
+          for changed_file in ${{ steps.files.outputs.added_modified }}; do
+          echo "File ${changed_file} has been checked and count of tabs : " >> report.log
+          grep -P '\t' ${changed_file} | wc -l >> report.log
+          done
+      - name: upload report
         uses: actions/upload-artifact@v2
         with:
-          path: nc_report.log
+          path: report.log
