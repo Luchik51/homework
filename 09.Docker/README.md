@@ -56,26 +56,39 @@ Hello Andrei Luchanok
 
 ## Github action
 ```bash
-name: Docker build and push
+name: Publish Docker image
+
 on:
+  release:
+    types: [published]
   push:
     branches:
-    - master
+      - "master"
 jobs:
-  build:
+  push_to_registries:
+    name: Push Docker image
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
     steps:
-      - name: Login to Docker Hub
+      - name: Check out the repo
+        uses: actions/checkout@v2
+
+      - name: Log in to the Container registry
         uses: docker/login-action@v1
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.DOCKER_TOKEN }}
 
-      - name: Build and push
+      - name: Build and push Docker images
         uses: docker/build-push-action@v2
         with:
+          context: .
           push: true
-          tags: luchik/image:latest
+          tags: ghcr.io/luchik51/homework:1
+
 ```
 
 ## Github Action Docker build

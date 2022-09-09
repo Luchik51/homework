@@ -27,7 +27,6 @@ jobs:
       - name: Build and push Docker images
         uses: docker/build-push-action@v2
         with:
-          file: 09.Docker/Dockerfile
           context: .
           push: true
           tags: ghcr.io/luchik51/homework:1
