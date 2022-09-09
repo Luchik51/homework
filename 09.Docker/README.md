@@ -77,3 +77,11 @@ jobs:
           push: true
           tags: luchik/image:latest
 ```
+
+## Github Action Docker build
+https://github.com/Luchik51/homework/runs/8267845689?check_suite_focus=true
+
+## Docker conteiner
+```bash
+docker pull ghcr.io/luchik51/homework:2
+```
