@@ -2,31 +2,78 @@
 
 ## Build Docker File
 ```bash
-root@debian11:/home/vagrant/2# docker build -t webserver:0.1 -f Dockerfile .
-Sending build context to Docker daemon  3.584kB
-Step 1/3 : FROM python:alpine
-alpine: Pulling from library/python
-213ec9aee27d: Pull complete
-6b2a141cd227: Pull complete
-a292fad6b52e: Pull complete
-4593e4e33a59: Pull complete
-9fc487f38654: Pull complete
-Digest: sha256:0c46c7f15ee201a2e2dc3579dbc302f989a20b1283e67f884941e071372eb2cc
-Status: Downloaded newer image for python:alpine
- ---> ce4168535f30
-Step 2/3 : COPY server.py /server.py
- ---> 42aa8f4f11c7
-Step 3/3 : ENTRYPOINT ["python3","-u", "server.py"]
- ---> Running in 06e48cdf10e4
-Removing intermediate container 06e48cdf10e4
- ---> d0aec0e10c75
-Successfully built d0aec0e10c75
-Successfully tagged webserver:0.1
+vagrant@debian11:~/09.Docker/test1$ docker build -t image:5 .
+Sending build context to Docker daemon  4.608kB
+Step 1/10 : FROM alpine:latest
+ ---> 9c6f07244728
+Step 2/10 : ENV PYTHONUNBUFFERED=1
+ ---> Using cache
+ ---> 252f98790dc7
+Step 3/10 : RUN apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
+ ---> Using cache
+ ---> 0a6d17a501d5
+Step 4/10 : RUN python3 -m ensurepip
+ ---> Using cache
+ ---> 3efbbe171986
+Step 5/10 : RUN pip3 install --no-cache --upgrade pip setuptools
+ ---> Using cache
+ ---> 59f2ad348ab8
+Step 6/10 : RUN mkdir ./app
+ ---> Using cache
+ ---> c615188f890c
+Step 7/10 : WORKDIR ./app
+ ---> Using cache
+ ---> bee7442e2fbc
+Step 8/10 : COPY ./app/* .
+ ---> e072d43f52ca
+Step 9/10 : EXPOSE 8899
+ ---> Running in 48d46f390a6e
+Removing intermediate container 48d46f390a6e
+ ---> 3229ef05e659
+Step 10/10 : CMD ["python3", "listener.py"]
+ ---> Running in 7131ac460fda
+Removing intermediate container 7131ac460fda
+ ---> 8b52b8034a75
+Successfully built 8b52b8034a75
+Successfully tagged image:5
+
 ```
 
 ## Run Docker conteiner
 ```bash
-root@debian11:/home/vagrant/2# docker run -p 8080:8000 -d webserver:0.1
-cddfc70f6f580c45bce99069046f8d49768046d030c1c18a5ca33e10c1c43837
+vagrant@debian11:~/09.Docker/test1$ docker run -d -p 8080:8090 image:5
+00c77ac316f7edefe0828ac9422f8057d81c9cc8b8951cee78fab3c7bdd99be8
+```
+## Test app
+```bash
+vagrant@debian11:~/09.Docker/test1$ docker ps
+CONTAINER ID   IMAGE     COMMAND                 CREATED         STATUS         PORTS                              NAMES
+00c77ac316f7   image:5   "python3 listener.py"   4 seconds ago   Up 3 seconds   8899/tcp, 0.0.0.0:8080->8090/tcp   beautiful_mccarthy
+
+vagrant@debian11:~/09.Docker/test1$ curl -d "hello" localhost:8080
+Hello Andrei Luchanok
 ```
 
+## Github action
+```bash
+name: Docker build and push
+on:
+  push:
+    branches:
+    - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: luchik/image:latest
+```
