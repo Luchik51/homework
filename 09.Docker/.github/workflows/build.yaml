@@ -29,4 +29,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/luchik51/homework:2
+          tags: ghcr.io/luchik51/homework:1

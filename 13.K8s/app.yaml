@@ -73,10 +73,10 @@ metadata:
   name: ingress-sa
   annotations:
     kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/server-alias: "app.k8s-36.sa"
+    nginx.ingress.kubernetes.io/server-alias: "app.k8s-20.sa"
 spec:
   rules:
-    - host: app.k8s-35.sa
+    - host: app.k8s-19.sa
       http:
         paths:
           - path: /

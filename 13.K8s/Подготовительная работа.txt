@@ -1,3 +1,17 @@
+Процесс похоже такой:
+2 варианта.
+1. Скачиваем файл с values и вносим туда изменения
+curl https://raw.githubusercontent.com/helm/charts/master/stable/wordpress/values-production.yaml --output values-production.yaml
+Потом запускаем
+helm install --name habr --set "wordpressBlogName=Flant's Blog!" --set "persistence.enabled=false" -f values-production.yaml stable/wordpress
+С указанием ремозитория (stable/wordpress - репозиторий stable - он по умолчанию есть в helm).
+https://github.com/helm/charts/tree/master/stable - тут есть список всех приложений.
+И с указанием файла с values -f values-production.yaml.
+2. Вариант. Запускаем одной строкой с указанием всех параметров.
+helm install sa-wordpress --set mariadb.enabled=false,externalDatabase.host=192.168.203.20,externalDatabase.user=user_db,externalDatabase.password=password,mariadb.auth.database=bitnami_wordpress,global.storageClass=nfs-client,wordpressUsername=admin,wordpressPassword=password bitnami/wordpress
+
+helm install - команда сразу отправляет файлы в кластер.
+
 https://bitnami.com/stack/wordpress/helm
 
 helm install my-release azure-marketplace/wordpress
@@ -83,3 +97,14 @@ dbinstallandcleate.yaml
 
 ~ ansible-playbook -i inventory.yaml dbinstallandcleate.yaml
 ~ helm install sa-drupal  --set mariadb.enabled=false,externalDatabase.host=192.168.203.8,externalDatabase.user=user_db,externalDatabase
+
+Drupal
+user
+password
+kubectl get secret --namespace default my-wordpress -o jsonpath="{.data.wordpress-password}" | base64 -d
+
+Wordpress
+Пароль: hDbv1tGHKmt8dop^Cz
+
+ПОдстава
+Installation failed: Не удалось создать директорию. /opt/bitnami/wordpress/wp-content/themes/hello-elementor/
