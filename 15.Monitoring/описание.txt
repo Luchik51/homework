@@ -1,0 +1,3 @@
+http://grafana.k8s-20.sa/?orgId=1
+admin
+55555
