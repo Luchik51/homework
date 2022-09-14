@@ -18,4 +18,4 @@ count_over_time({pod!=""}[$TimeInterval] |= "error")
 ![alt text](figures/Node-exporter&TimeInterval.png)
 
 ## Screenshot Jenkins
-![alt text](figures/Jenkins.png)
+![alt text](figures/jenkins.png)
