@@ -15,7 +15,7 @@ count_over_time({pod!=""}[$TimeInterval] |= "error")
 Так получилось, что у Drupal ошибок нет, поэтому график пустой (нет данных). Но логи есть.
 
 ## Screenshot Node-exporter and time interval
-![alt text](figures/Node-exporter and TimeInterval.png)
+![alt text](figures/Node-exporter&TimeInterval.png)
 
 ## Screenshot Jenkins
 ![alt text](figures/Jenkins.png)
