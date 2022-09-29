@@ -22,7 +22,13 @@
 ssh jump_sa@178.124.206.53 &quot;nc -vnz 192.168.202.20 22&quot;
 if [ $? -eq 0 ]; then
 echo &quot;Host ON&quot;
-ssh ansib &quot;apt -y update &amp;&amp; echo &apos;###############install nmap###############&apos; &amp;&amp; apt -y install nmap &amp;&amp; echo &apos;###############start scanning lan###############&apos; &amp;&amp; nmap -sP 192.16>
+ssh ansib &quot;apt -y update \
+           &amp;&amp; echo &apos;###############install nmap###############&apos; \
+           &amp;&amp; apt -y install nmap \
+           &amp;&amp; echo &apos;###############start scanning lan###############&apos; \
+           &amp;&amp; nmap -sP 192.168.202.0/24 192.168.203.0/24 \
+           &amp;&amp; echo &apos;###############remove nmap###############&apos;  \
+           &amp;&amp; apt -y autoremove nmap&quot;
 else
 echo &quot;Host OFF - build not start&quot;
 fi</command>

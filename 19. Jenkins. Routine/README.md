@@ -26,7 +26,13 @@ ssh-copy-id -i ~/.ssh/id_rsa.pub root@192.168.202.20
 ssh jump_sa@178.124.206.53 "nc -vnz 192.168.202.20 22"
 if [ $? -eq 0 ]; then 
 echo "Host ON"
-ssh ansib "apt -y update && echo '###############install nmap###############' && apt -y install nmap && echo '###############start scanning lan###############' && nmap -sP 192.168.202.0/24 192.168.203.0/24 && echo '###############remove nmap###############'  && apt -y autoremove nmap"
+ssh ansib "apt -y update \
+           && echo '###############install nmap###############' \
+           && apt -y install nmap \
+           && echo '###############start scanning lan###############' \
+           && nmap -sP 192.168.202.0/24 192.168.203.0/24 \
+           && echo '###############remove nmap###############'  \
+           && apt -y autoremove nmap"
 else
 echo "Host OFF - build not start"
 fi
