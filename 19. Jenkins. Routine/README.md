@@ -1,11 +1,11 @@
 # 19. Jenkins. Routine
 
-## History
+## History. Command in Jenkins server:
 ```bash
-ssh-copy-id -i ~/.ssh/id_rsa.pub jump_sa@178.124.206.53
 sudo -i
 su jenkins
 cd ~
+ssh-copy-id -i ~/.ssh/id_rsa.pub jump_sa@178.124.206.53
 nano .ssh/config
 ```
 add:
