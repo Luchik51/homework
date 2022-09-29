@@ -12,6 +12,30 @@ https://github.com/nextcloud/helm
 https://nextcloud.github.io/helm/
 https://artifacthub.io/packages/helm/nextcloud/nextcloud
 
+Примеры:
+https://blog.true-kubernetes.com/self-host-nextcloud-using-kubernetes/
+*оказываетсья надо генерировать самостоятельно пароли при деплое, а не прописывать их в конифигурационные файлы.
+https://www.youtube.com/watch?v=USS3DZn2te8
+
+kubectl get nodes
+kubectl version --short
+kubectl get nc
+kubectl get all -n nginx-ingress
+kubectl get all -n cert-manager
+helm search nectcloud (у меня не отрабоала, может из-за двух репозиториях?)
+helm search repo nextcloud
+helm inspect values stable/nextcloud > /tmp/nextcloud.values
+helm install stable/nextcloud --values /tmp/nextcloud.values --name nextcloud
+kubectl get all
+git clone https://github.com/justmeandopensource/kubernetes
+cd yamls
+ls
+nano ingress-resource.yaml
+kubectl create -f ingress-resource.yaml
+kubectl get ingress
+kubectl get pods -o wide
+kubectl describe ing ingress-resource
+
 Скачиваем файл с Values (https://github.com/nextcloud/helm/blob/master/charts/nextcloud/values.yaml) и можно для разных версий изменять настройки (колличество реплик, база данных mariadb или postgresql, кэширующий сервер (apcu), ресурсы)
 
 План такой:

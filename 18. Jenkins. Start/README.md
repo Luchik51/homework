@@ -2,6 +2,7 @@
 
 Running Jenkins behind Apache Reverse Proxy with name http://jenkins.local/.
 jenkins.local add to file hosts in local mashine with ip-address from VagrantFile.
+Running and add node with 3 executors.
 
 ## Screenshot Jenkins with node
 ![alt text](figures/Jenkins.local.png)
