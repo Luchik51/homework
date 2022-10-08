@@ -1,7 +1,7 @@
 # 21. Jenkins. Docker and Pod
 
 ## Jenkins pipline config 
-In file [a relative link](config.xml) config.xml
+In file [config.xml](config.xml) 
 
 ## Manual approve in Jenkins:
 ![alt text](figures/Action.png)
