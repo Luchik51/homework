@@ -1015,3 +1015,36 @@
   2016  ansible -i inventory.yaml -m ping -u root all_workers --ask-pass
  2018* ansible -i inventory.yaml -m authorized_key -a "key=\"{{lookup('file','~/.ssh/id_rsa.pub')}}\" user=root" all_workers -u root
   2023  ansible-playbook -i inventory/testcluster/hosts.yaml  -u root cluster.yml
+
+
+
+
+
+  WARNING: This chart is deprecated
+NAME: nextcloud-1664822660
+LAST DEPLOYED: Mon Oct  3 21:44:23 2022
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:
+This Helm chart is deprecated
+
+Given the `stable` deprecation timeline (https://github.com/helm/charts#deprecation-timeline), the Nextcloud maintained Helm chart is now located at nextcloud/helm (https://github.com/nextcloud/helm/tree/master/charts/nextcloud).#######################################################################################################
+## WARNING: You did not provide an external database host in your 'helm install' call                ##
+## Running Nextcloud with the integrated sqlite database is not recommended for production instances ##
+#######################################################################################################
+
+For better performance etc. you have to configure nextcloud with a resolvable database
+host. To configure nextcloud to use and external database host:
+
+
+1. Complete your nextcloud deployment by running:
+
+  export APP_HOST=127.0.0.1
+  export APP_PASSWORD=$(kubectl get secret --namespace default nextcloud-1664822660 -o jsonpath="{.data.nextcloud-password}" | base64 --decode)
+
+  ## PLEASE UPDATE THE EXTERNAL DATABASE CONNECTION PARAMETERS IN THE FOLLOWING COMMAND AS NEEDED ##
+
+  helm upgrade nextcloud-1664822660 stable/nextcloud \
+    --set nextcloud.password=$APP_PASSWORD,nextcloud.host=$APP_HOST,service.type=ClusterIP,mariadb.enabled=false,externalDatabase.user=nextcloud,externalDatabase.database=nextcloud,externalDatabase.host=YOUR_EXTERNAL_DATABASE_HOST
