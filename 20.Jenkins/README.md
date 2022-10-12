@@ -7,7 +7,7 @@ In file [config.xml](config.xml)
 In file [report.txt](report.txt) 
 
 ## Jenkins start job:
-![alt text](figures/start_job.png.png)
+![alt text](figures/start_job.png)
 
 ## Jenkins end job:
 ![alt text](figures/end_job.png)
