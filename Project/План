@@ -14,6 +14,7 @@ declare -a IPS=(192.168.37.201)
 CONFIG_FILE=inventory/testcluster/hosts.yaml python3 contrib/inventory_builder/inventory.py ${IPS[@]}
 ansible -i inventory/testcluster/hosts.yam -m ping -u root all
 ansible-playbook -i inventory/testcluster/hosts.yaml  -u root cluster.yml
+*****sudo apt install nfs-common # установить на k8s машины для работы с NFS
 
 Копируем себе конфигурацию K8s
 cp ~/.kube/config ~/.kube/config_it-academy
@@ -25,8 +26,10 @@ kubectl get pods
 
 Нашел несколько ссылок на репозиторий Helm.
 https://github.com/nextcloud/helm
+https://github.com/nextcloud/helm.git
 https://nextcloud.github.io/helm/
 https://artifacthub.io/packages/helm/nextcloud/nextcloud
+
 
 Примеры:
 https://blog.true-kubernetes.com/self-host-nextcloud-using-kubernetes/
@@ -55,8 +58,11 @@ kubectl describe ing ingress-resource
 Скачиваем файл с Values (https://github.com/nextcloud/helm/blob/master/charts/nextcloud/values.yaml) и можно для разных версий изменять настройки (колличество реплик, база данных mariadb или postgresql, кэширующий сервер (apcu), ресурсы)
 
 План такой:
-1) Готовивим NFS хранилище
+1) Готовивим NFS хранилище - что-то пошло не так и NFS не заработал, возможно, из-за отсуствия storage classes
 запускаем на заранее подготовленную и запущенную виртуальную машину скриптом ansible устаноку NFS сервера
 2) Готовим K8s кластер, минимально из одного сервера
 запускаем ansible скрипт, который развернет на сервере(ах) k8s кластер и скопирует нам файл для управления (либо под каждый проект создаем vagrant машину, готовим её (ставим все интсрументы) и после запускаеться ansible playbook, который раскатывает на наших серверах (нужны адреса, учетные данные) k8s кслатер и все остальное..)
 wget забираем из нашего репозитория мой yaml манифест (helm). Вношу в нем правки для контертного клиента, и раскатываю все сервисы.
+3) Можно подготовить helm чарт и версии для базы данных .. и они должны автоматически деплояться после пуша. т.е. при измении кода и пуша, должна создаваться новая версия helm. Либо чрез дженкис - смотрит на гит и реагирует, либо гитхаб экшон. А потом я в дженкис смогу выбрать эту версию для деплоя.
+Как вариант - правка гита в части изменения докерфайла и версии mysql. запуск проверки и деплоя.
+4) оригинальное приложение должно обновляться из оригинального репозитория, что бы можно было легко изменить\установить последниею версию приложения. Деплоить буду через дженкинс.

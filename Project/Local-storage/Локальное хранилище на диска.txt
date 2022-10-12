@@ -1,0 +1,31 @@
+https://serverascode.com/2018/09/19/persistent-local-volumes-kubernetes.html
+Подключает 2 диска, типо SSD и HDD. Форматируем, монтируем /mnt
+у меня сервер называеться node1, поэтому надо изменить там в PVC в конце файла имя сервера в клатере, где создаеться хранилище
+
+mkfs.ext4 /dev/sdc
+mkfs.ext4 /dev/sdb
+mkdir -p /mnt/disks/sdc
+mkdir -p /mnt/disks/sdb
+mount /dev/sdc /mnt/disks/sdc
+mount /dev/sdb /mnt/disks/sdb
+
+kubectl create -f storage-class.yml
+kubectl get sc
+kubectl create -f pv-sdc.yml
+kubectl create -f pv-sdb.yml
+kubectl get pv
+kubectl create -f pvc1.yml
+kubectl get pvc
+#Для примера
+#kubectl create -f deploy-nginx.yml
+kubectl get pvc
+kubectl expose deployment nginx-deployment --type=NodePort
+kubectl get svc nginx-deployment
+
+Тест уже на самом kubernetes кластере, т.к. мы напрямую в примонтированные диски создаем файл.
+uuid=`uuidgen`
+echo $uuid
+ksjdflksdlkfjsldkjfklsjdf
+echo $uuid > /mnt/disks/sdc/index.html
+curl 10.233.61.51
+ksjdflksdlkfjsldkjfklsjdf

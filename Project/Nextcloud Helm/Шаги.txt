@@ -1,0 +1,58 @@
+Пример с учебы:
+Создаем новое приложение helm
+helm create first-app
+
+Правим там версию и значения
+vim first-app/Chart.yaml
+vim first-app/values.yaml
+
+Создаем арихив с нашей версией
+helm package first-app
+
+Создаем отдельный репозиторий на гите под это приложение, загружаем изменения в гит, в настройках - package выбираем канал main. Делаем пуш изменения, ждем минуту-две и появитсья ссылка сверху
+
+Мы эту ссылку используем в качестве репозитория для helm
+helm repo index --url https://pluhin.github.io/helm-demo-21/
+
+Делаем пуш нашей вервой версии приложения
+git commit -m "First version"
+git push
+git push --set-upstream origin main
+
+Добавляем репозиотрий с произвольным имененм и смотрим список наших приложений и версий. Там будет одна, нашей версии
+helm repo add helm_demo https://pluhin.github.io/helm-demo-21/
+helm repo update
+helm search repo app -l
+
+
+****
+Самые последние версии nextcloud - https://nextcloud.github.io/helm/
+Добавляем репозиторий и смотрим доступные версии. На оригинальном гитхабе почему хелм версии заканчиваются а 17, а на этой начинаються с 17 и заканчиваются 24, правда на гибхабе какие-то странные резизы, типо 3.12...
+helm repo add nextcloud-origin https://nextcloud.github.io/helm/
+helm search repo -l nextcloud-origin/nextcloud
+Установка -
+helm install nextcloud-local nextcloud/nextcloud
+****
+
+Создание второй версии. Вносим изменения в код. Генерируем новый архив и мерджим с последней версией.
+helm package first-app
+helm repo index --url https://pluhin.github.io/helm-demo-21/ --merge index.yaml .
+У нас обновиться файл index.yaml, который содержит версии нашего приложения. И далее мы его пушим и получаем 2 версии в нашем репозитории гита.
+
+Установка и деплой в кубернетес с выбором версии и добавленного ранее репозитория:
+helm install fist-app helm_demo/first-app --version v0.2.0
+
+поидеи процесс деплоя оригинального приложения с выбором версии:
+helm repo add nextcloud-origin https://nextcloud.github.io/helm/
+helm repo update
+helm install any-name nextcloud-origin/nextcloud --version v3.1.2
+смена версии
+helm install any-name nextcloud-origin/nextcloud --version v2.14.6
+Но нужно указать файл с values для установки и можно еще параметры для паролей, например, от личного кабинета или базы данных
+удаление приложения
+helm uninstall any-name
+
+
+
+helm inspect values stable/nextcloud > ./nextcloud.values
+

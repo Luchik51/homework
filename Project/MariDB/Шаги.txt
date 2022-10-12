@@ -1,0 +1,2 @@
+
+helm install database bitnami/mariadb --version v11.3.3 --set auth.database=nextcloud,auth.username=nextcloud,auth.password=nextcloud,primary.persistence.size=300Mi,global.storageClass=nfs-client

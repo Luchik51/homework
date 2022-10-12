@@ -1,0 +1,60 @@
+pipeline {
+    agent {label "master"}
+    triggers {
+        cron('0 2 * * 0')
+    }
+    stages {
+        stage('Clone repository') {
+            steps {
+                git url: 'git@github.com:Luchik51/homework.git', credentialsId: 'repo_homework'
+            }
+        }
+    stage('Checking internet speed and online hosts'){
+            steps {
+                sh '''
+                ssh jump_sa@178.124.206.53 "nc -vnz 192.168.202.20 22"
+                if [ $? -eq 0 ]; then
+                echo "Host ON"
+                ssh ansib "apt -y update \
+                           && echo '###############install nmap###############' \
+                           && apt -y install nmap \
+                           && echo '###############install speedtest###############' \
+                           && apt -y install curl \
+                           && curl -s https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.deb.sh | sudo bash \
+                           && apt -y install speedtest \
+                           && echo '###############start scanning lan###############' \
+                           && nmap -sP 192.168.202.0/24 192.168.203.0/24 > report.txt \
+                           && speedtest >> report.txt \
+                           && echo '###############remove nmap###############'  \
+                           && apt -y autoremove nmap"
+                scp ansib:/root/report.txt .
+                else
+                echo "Host OFF - build not start"
+                fi
+                '''
+            }
+        }
+    stage('Download report scan'){
+            steps {
+                sh '''
+                scp ansib:/root/report.txt .
+                '''
+            }
+        }
+    stage('Push to my repository') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'repo_homework', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                    script {
+                        env.encodedPass=URLEncoder.encode(PASS, "UTF-8")
+                    }
+                    sh '''
+                    git checkout master
+                    git add .
+                    git commit -m "update 20.Jenkins"
+                    git push
+                    '''
+                }
+            }
+        }
+    }
+}

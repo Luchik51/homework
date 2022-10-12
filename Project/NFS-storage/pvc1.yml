@@ -1,0 +1,11 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc1
+spec:
+  accessModes:
+  - ReadWriteMany
+  storageClassName: nfs-pv-sdb
+  resources:
+    requests:
+      storage: 400Mi
