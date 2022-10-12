@@ -10,4 +10,4 @@ In file [report.txt](report.txt)
 ![alt text](figures/start_job.png)
 
 ## Jenkins end job:
-![alt text](figures/end_job.png)
+![alt text](figures/SUCCESS.png)
