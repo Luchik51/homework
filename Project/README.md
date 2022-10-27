@@ -1,14 +1,12 @@
 # Project report
 
-#### Project's reporter: <span style="text-decoration: underline">Andrei Luchanok</span>
-#### Group number: md-sa2-21-22
+Project's reporter: **Andrei Luchanok**
+Group number: **md-sa2-21-22**
 ---
 ### Description of application for deployment
-Application: Wordpress \
-Programimg language: PHP \
-DB: MariaDB
----
-### Official git repository link: https://github.com/nextcloud/docker 
+- **Application**: Wordpress \
+- **Programimg language**: PHP \
+- **DB: MariaDB**
 ---
 ## Pipeline. High Level Design
 
