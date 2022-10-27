@@ -1,8 +1,0 @@
-all_workers:
-  children:
-    work_sa:
-      hosts:
-        k8s:
-          ansible_host: 192.168.37.159
-#        nfs:
-#          ansible_host: 192.168.37.127

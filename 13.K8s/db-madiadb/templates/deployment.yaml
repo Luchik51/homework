@@ -28,10 +28,10 @@ apiVersion: apps/v1
   - name: restart mysql if necessary
     command: service mysql restart
 
-  - mysql_db:
-      name: "{{ .Values.Mysql.db_name }}"
-      state: absent
-      login_unix_socket: /var/run/mysqld/mysqld.sock
+#  - mysql_db:
+#      name: "{{ .Values.Mysql.db_name }}"
+#      state: absent
+#      login_unix_socket: /var/run/mysqld/mysqld.sock
 
   - mysql_db:
       name: "{{ .Values.Mysql.db_name }}"
@@ -43,5 +43,31 @@ apiVersion: apps/v1
       host: "%"
       password: "{{ .Values.Mysql.db_pass }}"
       priv: "{{ .Values.Mysql.db_name }}.*:ALL"
+      login_unix_socket: /var/run/mysqld/mysqld.sock
+    no_log: yes
+
+  - mysql_db:
+      name: "{{ db2_name }}"
+      encoding: utf8
+      login_unix_socket: /var/run/mysqld/mysqld.sock
+
+  - mysql_user:
+      name: "{{ db2_user }}"
+      host: "%"
+      password: "{{ db2_pass }}"
+      priv: "{{ db2_name }}.*:ALL"
+      login_unix_socket: /var/run/mysqld/mysqld.sock
+    no_log: yes
+
+  - mysql_db:
+      name: "{{ db3_name }}"
+      encoding: utf8
+      login_unix_socket: /var/run/mysqld/mysqld.sock
+
+  - mysql_user:
+      name: "{{ db3_user }}"
+      host: "%"
+      password: "{{ db3_pass }}"
+      priv: "{{ db3_name }}.*:ALL"
       login_unix_socket: /var/run/mysqld/mysqld.sock
     no_log: yes

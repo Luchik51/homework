@@ -12,8 +12,14 @@ app_packages:
 
 Mysql:
   db_name: "bitnami_wordpress"
-  db_user: "user_db"
-  db_pass: "pass_db"
+  db_user: "bn_wordpress"
+  db_pass: "password"
+  db2_name: "bitnami_drupal"
+  db2_user: "bn_drupal"
+  db2_pass: "password"
+  db3_name: "wordpress"
+  db3_user: "wordpress"
+  db3_pass: "wordpress"
   
 image:
   repository: eboraas/apache-php

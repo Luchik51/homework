@@ -12,6 +12,9 @@
     db2_name: "bitnami_drupal"
     db2_user: "bn_drupal"
     db2_pass: "password"
+    db3_name: "wordpress"
+    db3_user: "wordpress"
+    db3_pass: "wordpress"
   pre_tasks:
   - name: Prepare. Install packages
     apt:
