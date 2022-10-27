@@ -1,11 +1,11 @@
-#Project report
+# Project report
 
-### Project's reporter: Andrei Luchanok
-### Group number: md-sa2-21-22
+#### Project's reporter: <span style="text-decoration: underline">Andrei Luchanok</span>
+#### Group number: md-sa2-21-22
 ---
 ### Description of application for deployment
-Application: Wordpress
-Programimg language: PHP
+Application: Wordpress \
+Programimg language: PHP \
 DB: MariaDB
 ---
 ### Official git repository link: https://github.com/nextcloud/docker 
@@ -24,7 +24,7 @@ DB: MariaDB
 ---
 
 ## Links: 
-Project repository: https://github.com/Luchik51/wordpress-academy
-Helm carts repository: https://luchik51.github.io/wordpress-academy/
-Docker repository: https://hub.docker.com/r/luchik/project2022
+Project repository: https://github.com/Luchik51/wordpress-academy \
+Helm carts repository: https://luchik51.github.io/wordpress-academy/ \
+Docker repository: https://hub.docker.com/r/luchik/project2022 \
 Official git repository link: https://github.com/WordPress/WordPress
