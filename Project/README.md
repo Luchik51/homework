@@ -6,7 +6,7 @@ Group number: **md-sa2-21-22**
 ### Description of application for deployment
 - **Application**: Wordpress
 - **Programimg language**: PHP
-- **DB: MariaDB**
+- **DB**: MariaDB
 ---
 ## Pipeline. High Level Design
 
